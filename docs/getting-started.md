@@ -1,35 +1,26 @@
-# 🚀 Getting Started with `google-auth-rewired`
+### 📄 `docs/getting-started.md` — **Google Auth Rewired: Getting Started**
 
-Welcome to the lightweight, execution-first Python auth layer for Google APIs.  
-This guide helps you set up and run your first authenticated API call in minutes.
 
----
+# 🚀 Getting Started
 
-## ✅ What This Project Is
-
-`google-auth-rewired` is a **minimal, fast, and focused** Google API authentication wrapper for Python.
-
-No bloat. No enterprise overload. Just what devs actually need:
-
-- 🔐 Load credentials
-- 🔁 Auto-refresh tokens
-- 🧾 Call APIs with auth headers
-- 🪶 All in a clean, importable class
+Welcome to **Google Auth Rewired** — a lightweight Python auth toolkit designed to get you authenticated and calling Google APIs in seconds, not hours.
 
 ---
 
-## 📦 1. Install the Package
+## 🔧 1. Setup & Install
 
-Create a virtual environment and activate it:
+Clone the repo and create a virtual environment:
 
 ```bash
+git clone https://github.com/cureprotocols/google-auth-rewired.git
+cd google-auth-rewired
 python -m venv .venv
-.venv\Scripts\activate  # Windows
-# OR
-source .venv/bin/activate  # Mac/Linux
+.venv\Scripts\activate     # On Windows
+# Or
+source .venv/bin/activate  # On macOS/Linux
 ```
 
-Then install the package + dev tools:
+Install dependencies:
 
 ```bash
 pip install -e .[dev]
@@ -37,75 +28,69 @@ pip install -e .[dev]
 
 ---
 
-## 🔐 2. Add Your `key.json`
+## 🔑 2. Service Account Key
 
-You’ll need a service account key from GCP.  
-Follow the steps in [docs/service-accounts.md](./service-accounts.md) to:
+1. Go to [Google Cloud Console](https://console.cloud.google.com/).
+2. Create a **Service Account** and generate a key.
+3. Save it as `key.json` in the project root.
 
-- Create a service account
-- Enable APIs (Drive, Sheets, Gmail, etc.)
-- Download the key file
+> ✅ Add `key.json` to your `.gitignore`. Never commit secrets!
 
-Place it in the project root as:
+---
+
+## ✅ 3. Run Tests
+
+Quick sanity check:
+
+```bash
+python -m pytest -v
+```
+
+You should see:
 
 ```
-google-auth-rewired/
-├── key.json  ✅
+3 passed in X.XXs
 ```
 
 ---
 
-## ✨ 3. Run Your First Example
+## 📦 4. Use an Example
 
-Let’s call the Google Drive API.
+Run the Drive API example:
 
 ```bash
 python examples/drive_basic.py
 ```
 
-Expected output: A list of files from your Google Drive (if access was granted).
-
----
-
-## 🧠 4. Try Other Examples
-
-These are plug-and-play:
-
-| File | Description |
-|------|-------------|
-| `examples/drive_basic.py` | Lists files in Google Drive |
-| `examples/sheets_read.py` | Reads a spreadsheet |
-| `examples/gcs_upload.py` | Uploads a file to Cloud Storage |
-| `examples/gmail_send.py` | Sends email via Gmail |
-
----
-
-## 🧪 5. Run Tests
+Or Sheets, Gmail, GCS:
 
 ```bash
-pytest
-```
-
-Optional: format code with:
-
-```bash
-ruff check . --fix
-black .
+python examples/sheets_read.py
+python examples/gmail_send.py
+python examples/gcs_upload.py
 ```
 
 ---
 
-## 🧭 6. Want More?
+## 📚 Want More?
 
-Explore these docs next:
+Check out:
 
-- [Service Accounts](./service-accounts.md)
-- [OAuth Flow (for user consent)](./oauth-flow.md)
-- [Scopes Reference](./scopes-reference.md)
+- [`docs/service-accounts.md`](service-accounts.md)
+- [`docs/scopes-reference.md`](scopes-reference.md)
+- [`docs/oauth-flow.md`](oauth-flow.md) (for user auth)
+- [`examples/`](../examples)
 
 ---
 
-## 💥 That’s It
+## 🙌 You’re In
 
-You’re now using Google APIs with power and simplicity.  
-Go build something brilliant.
+This is Python + Google auth with **zero bloat**, clean session management, token refresh, and readable code.
+
+Let’s ship.
+
+—
+*Built for devs who want velocity, clarity, and control.*
+```
+
+---
