@@ -3,25 +3,15 @@
 from google_auth_rewired.lite import GoogleAuthLite
 from google_auth_rewired.scopes import DRIVE_READONLY
 
-# 🔐 Path to your downloaded service account key
-SERVICE_ACCOUNT_FILE = "key.json"
+auth = GoogleAuthLite("key.json", scopes=[DRIVE_READONLY])
 
-# 🎯 Drive API endpoint to list files
-DRIVE_API_URL = "https://www.googleapis.com/drive/v3/files"
+# Call the Drive API to list files
+response = auth.get("https://www.googleapis.com/drive/v3/files")
 
-# ✅ Initialize GoogleAuthLite with the correct scope
-auth = GoogleAuthLite(
-    service_account_file=SERVICE_ACCOUNT_FILE,
-    scopes=[DRIVE_READONLY]
-)
-
-# 🔁 Make authenticated GET request
-response = auth.get(DRIVE_API_URL)
-
-# 📦 Print Drive file metadata
-if response.ok:
+if response.status_code == 200:
     files = response.json().get("files", [])
+    print("✅ Files in Drive:")
     for file in files:
-        print(f"{file.get('name')} ({file.get('id')})")
+        print(f"📄 {file.get('name')} (ID: {file.get('id')})")
 else:
-    print("Error:", response.status_code, response.text)
+    print("❌ Failed to retrieve files:", response.text)
