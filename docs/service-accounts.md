@@ -1,82 +1,96 @@
-# 🔐 Setting Up Google Service Accounts (For `google-auth-rewired`)
+### ✅ `docs/service-accounts.md`
 
-This doc explains how to set up a Google Cloud **Service Account** and download your `key.json` to test `google-auth-rewired`.
 
----
+# 🔐 Service Accounts Guide
 
-## ✅ What You Need
+Google Cloud service accounts are **robot identities** used to authenticate securely with Google APIs — without manual login.
 
-- A free [Google Cloud Platform (GCP)](https://console.cloud.google.com) account
-- A project created in GCP
-- Basic IAM permissions to create service accounts
+This guide shows how to create, download, and use a service account with `google-auth-rewired`.
 
 ---
 
-## 🛠️ Steps
+## 1. 🧱 Create a Service Account
 
-### 1. Go to [Google Cloud Console](https://console.cloud.google.com)
-
-- Select your project (or create a new one)
-
----
-
-### 2. Enable the Required APIs
-
-Go to **APIs & Services > Library** and enable:
-
-- Google Drive API (for `drive_basic.py`)
-- Google Sheets API (for `sheets_read.py`)
-- Gmail API (for `gmail_send.py`)
-- Google Cloud Storage API (for `gcs_upload.py`)
+1. Go to [Google Cloud Console → IAM & Admin → Service Accounts](https://console.cloud.google.com/iam-admin/serviceaccounts).
+2. Click **Create Service Account**.
+3. Give it a name like: `google-auth-lite`
+4. Click **Create and Continue**.
+5. Assign role: `Editor` or more specific (like `Storage Admin`, `Drive Viewer`, etc).
+6. Click **Done**.
 
 ---
 
-### 3. Create a Service Account
+## 2. 📁 Create and Download `key.json`
 
-1. Go to **IAM & Admin > Service Accounts**
-2. Click `+ Create Service Account`
-3. Name it, e.g. `google-auth-rewired-test`
-4. Click `Create and Continue`
+1. Click your newly created service account.
+2. Go to the **Keys** tab.
+3. Click **Add Key → Create new key**.
+4. Select **JSON**, then click **Create**.
+5. A `.json` file will download — **rename it to**:
 
----
-
-### 4. Grant Permissions (Optional for Testing)
-
-For most tests:
-- You can skip assigning roles if you're not accessing protected resources
-- If needed, add roles like:
-  - `Viewer` for read-only
-  - `Storage Admin` for GCS
-  - `Drive Admin` for Drive access
-
----
-
-### 5. Create and Download the Key
-
-1. After the service account is created, click its name
-2. Go to the **"Keys" tab**
-3. Click **"Add Key" > "Create new key"**
-4. Choose `JSON` and click **Create**
-
-> 💾 This will download a file like `key.json` — save it in your project root:
-```
-C:\Users\yourname\Documents\google-auth-rewired\key.json
-```
-
----
-
-### 6. Add to `.gitignore`
-
-Never commit credentials. Add this to your `.gitignore`:
 ```
 key.json
-*.json
+```
+
+And place it in your project root directory.
+
+> ✅ This file is sensitive. **Never commit it to version control.**  
+> Be sure it’s in your `.gitignore`.
+
+---
+
+## 3. 🧪 Test It Locally
+
+Once `key.json` is in your root, run:
+
+```bash
+python -m pytest -v
+```
+
+All tests should pass, including access token and live API calls (e.g., Drive, Sheets).
+
+---
+
+## 4. 📂 Enable APIs You Need
+
+Go to [API & Services → Library](https://console.cloud.google.com/apis/library) and **enable** the APIs your service account needs:
+
+- Google Drive API
+- Gmail API
+- Google Sheets API
+- Google Cloud Storage API
+- etc.
+
+---
+
+## 5. 🤝 Grant File Access (For Drive / Gmail)
+
+For some APIs like **Google Drive**, you must **share the resource** (file or folder) with your service account email:
+
+```
+your-service-account@your-project-id.iam.gserviceaccount.com
 ```
 
 ---
 
-## 🔁 Refreshing Credentials
+## 6. 🔒 Best Practices
 
-Service account credentials **auto-refresh** via `google-auth` — no need to manually handle token expiration.
+- Restrict API scopes via `scopes.py`
+- Never commit `key.json`
+- Use `GOOGLE_APPLICATION_CREDENTIALS` for secure runtime environments (Cloud Run, CI/CD, etc.)
+
+---
+
+💡 Once your `key.json` works locally, you’re fully wired to start calling APIs securely with `GoogleAuthLite`.
+
+```
+from google_auth_rewired import GoogleAuthLite
+
+auth = GoogleAuthLite("key.json")
+token = auth.get_access_token()
+```
+
+🔥 Execute with no overhead. You’re now in full control.
+```
 
 ---
