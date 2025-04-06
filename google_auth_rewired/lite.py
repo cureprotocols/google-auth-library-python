@@ -1,3 +1,5 @@
+# google_auth_rewired/lite.py
+
 from google.auth.transport.requests import Request, AuthorizedSession
 from google.oauth2 import service_account, id_token
 from typing import Optional
