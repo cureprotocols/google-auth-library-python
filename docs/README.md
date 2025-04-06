@@ -1,20 +1,51 @@
-# 📚 Google Auth Rewired – Docs Hub
+# 📘 `docs/README.md` — Project Docs Home
 
-Welcome to the documentation for **google-auth-rewired** – a streamlined authentication SDK for Google Cloud and API access using Python.
+Welcome to the internal documentation for **`google-auth-rewired`** — a lightweight, execution-first toolkit that simplifies authenticating to Google APIs in Python.
 
-This is the home for:
-- Quickstart Guides ✅  
-- Service Account Setup ✅  
-- Scopes Reference ✅  
-- OAuth2 User Consent ✅  
-- IAM Impersonation ✅  
+This folder contains documentation for usage, scopes, service accounts, impersonation, and advanced workflows.
 
 ---
 
-## 📂 Documentation Map
+## 🗂️ Docs Structure
 
-- [Getting Started](getting-started.md)
-- [Service Accounts](service-accounts.md)
-- [Scopes Reference](scopes-reference.md)
-- [OAuth Flow](oauth-flow.md)
-- [Impersonation](impersonation.md)
+| File | Purpose |
+|------|---------|
+| `getting-started.md` | How to install, test, and run the library locally |
+| `service-accounts.md` | Guide to generating, using, and securing service account keys |
+| `scopes-reference.md` | Handy reference list for common Google OAuth scopes |
+| `oauth-flow.md` | Setup for browser-based user OAuth2 flows |
+| `impersonation.md` | Guide to IAM impersonation for advanced setups |
+
+---
+
+## 🛠️ Quick Links
+
+- 🔑 [Getting Started](getting-started.md)
+- 🔐 [Scopes Reference](scopes-reference.md)
+- 🤖 [Service Accounts](service-accounts.md)
+- 🌐 [OAuth2 Flow](oauth-flow.md)
+- 🧙 [Impersonation](impersonation.md)
+
+---
+
+## 🧠 Who This Is For
+
+This documentation is for:
+- Python developers working with Google APIs
+- Teams who want to avoid bloated auth libraries
+- Builders who prefer clean, minimalistic SDKs
+
+---
+
+## 🤝 Contributing
+
+If you're contributing updates, please update relevant docs alongside your code.
+
+```bash
+git add docs/<filename>.md
+```
+
+Let’s keep this clean, focused, and developer-friendly.
+```
+
+---
