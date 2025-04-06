@@ -1,8 +1,9 @@
 # google-auth-lite
 
-[![PyPI version](https://img.shields.io/pypi/v/google-auth-lite.svg)](https://pypi.org/project/google-auth-lite/)
-[![License](https://img.shields.io/pypi/l/google-auth-lite.svg)](https://github.com/cureprotocols/google-auth-rewired/blob/main/LICENSE)
-[![Python](https://img.shields.io/pypi/pyversions/google-auth-lite.svg)](https://pypi.org/project/google-auth-lite/)
+[![PyPI version](https://img.shields.io/pypi/v/google-auth-lite)](https://pypi.org/project/google-auth-lite/)
+[![License: MIT](https://img.shields.io/github/license/cureprotocols/google-auth-rewired)](https://github.com/cureprotocols/google-auth-rewired/blob/main/LICENSE)
+[![Python](https://img.shields.io/pypi/pyversions/google-auth-lite)](https://pypi.org/project/google-auth-lite/)
+
 
 > A lightweight Google Auth SDK for service accounts and OAuth2 login — clean, modern, and developer-focused.
 
