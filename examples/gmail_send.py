@@ -1,49 +1,32 @@
 # examples/gmail_send.py
 
-"""
-📬 Gmail Send Example — using google_auth_rewired
-
-Requirements to Work:
-- Gmail API must be enabled on your Google Cloud project:
-    → https://console.cloud.google.com/apis/library/gmail.googleapis.com
-- Service account must be delegated domain-wide authority (if sending as a user):
-    → https://developers.google.com/admin-sdk/gmail/guides/delegation
-- Or: Use OAuth2 flow instead (see oauth_flow.py – WIP)
-"""
-
-import base64
-from email.mime.text import MIMEText
 from google_auth_rewired.lite import GoogleAuthLite
 from google_auth_rewired.scopes import GMAIL_SEND
 
-# Initialize auth
-auth = GoogleAuthLite(
-    service_account_file="key.json",
-    scopes=[GMAIL_SEND]
-)
+import base64
+from email.mime.text import MIMEText
 
-def create_message(sender: str, to: str, subject: str, message_text: str) -> dict:
-    """Create a base64url encoded email message."""
-    message = MIMEText(message_text)
-    message['to'] = to
-    message['from'] = sender
-    message['subject'] = subject
-    raw = base64.urlsafe_b64encode(message.as_bytes()).decode()
-    return {'raw': raw}
+# Initialize with Gmail scope
+auth = GoogleAuthLite("key.json", scopes=[GMAIL_SEND])
 
-# Replace with actual recipient email
-sender = "me"  # 'me' means authenticated user
-recipient = "someone@example.com"
-subject = "Hello from google-auth-rewired 👋"
-body = "This is a test email sent via Gmail API and your custom SDK."
+def create_message(sender, to, subject, body_text):
+    """Create a MIMEText email and encode in base64url."""
+    message = MIMEText(body_text)
+    message["to"] = to
+    message["from"] = sender
+    message["subject"] = subject
+    encoded_message = base64.urlsafe_b64encode(message.as_bytes()).decode()
+    return {"raw": encoded_message}
 
-msg = create_message(sender, recipient, subject, body)
+# 🔁 Replace these with actual values
+sender = "your-email@gmail.com"
+to = "recipient@example.com"
+subject = "Test Email"
+body_text = "Hello from GoogleAuthLite!"
 
-# Send the email
-resp = auth.post(
-    url="https://gmail.googleapis.com/gmail/v1/users/me/messages/send",
-    json=msg
-)
+message = create_message(sender, to, subject, body_text)
 
-print("Response Status:", resp.status_code)
-print("Response Body:", resp.json())
+# Send via Gmail API
+res = auth.post("https://gmail.googleapis.com/gmail/v1/users/me/messages/send", json=message)
+print("Status:", res.status_code)
+print("Response:", res.json())
