@@ -41,3 +41,6 @@ key.json
 
 # Jupyter Notebook checkpoints
 .ipynb_checkpoints/
+
+# PyPI token config
+.pypirc
